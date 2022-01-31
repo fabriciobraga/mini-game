@@ -36,7 +36,7 @@
                     <v-col cols="12">
                         <v-card class="elevation-10">
                             <v-card-text class="title">
-                                {{step.pergunta}} {{step.indice}}
+                                {{step.pergunta}}
                             </v-card-text>
                         </v-card>
                     </v-col>
