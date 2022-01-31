@@ -6,7 +6,29 @@
         Bem-vindo ao minigame!
       </v-col>
 
-      <v-col cols="12" class="pt-8" v-for="step in steps" :key="step.indice">
+      <v-col cols="12" class="pb-0">
+        <v-stepper v-model="stepper">
+            <v-stepper-header>
+            <v-stepper-step step="1">
+                Questão 1
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step step="2">
+                Questão 2
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step step="3">
+                Questão 3
+            </v-stepper-step>
+            </v-stepper-header>
+        </v-stepper>
+      </v-col>
+
+      <v-col cols="12" class="pt-1" v-for="step in steps" :key="step.indice">
 
           <v-expand-transition>
             <v-sheet v-if="stepper == step.indice && !step.showResultado" class="mt-6">
@@ -32,10 +54,10 @@
                     </v-col>
 
                     <v-col cols="12" class="text-right">
-                        <v-btn color="primary" class="mr-5" v-if="step.selecionado != null" @click="step.showResultado = true;">
+                        <v-btn color="primary" class="mr-5" :disabled="step.selecionado == null" @click="step.showResultado = true;">
                             Responder
                         </v-btn>
-                        <v-btn color="primary" class="" text outlined>
+                        <v-btn color="primary" class="" text outlined @click="restart">
                             Reiniciar
                         </v-btn>
                     </v-col>
@@ -47,7 +69,7 @@
                 <v-row>
                     <v-col cols="12">
                         <v-card class="elevation-10">
-                            <v-card-title class="primary">
+                            <v-card-title class="" v-bind:class="step.respostas[step.selecionado].resultado ? 'primary' : 'error'">
                                 <v-spacer></v-spacer>
                                 <v-icon large color="white" v-if="step.respostas[step.selecionado].resultado">mdi-emoticon-happy-outline</v-icon>
                                 <v-icon large color="white" v-if="!step.respostas[step.selecionado].resultado">mdi-emoticon-sad-outline</v-icon>
@@ -186,7 +208,7 @@
                 this.steps[i].showResultado = false;
             }
             this.stepper = 1;
-
+            
         }
     }
   }
